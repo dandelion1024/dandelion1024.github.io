@@ -68,11 +68,11 @@
 </li>
 <li><p><strong>正切函数</strong>与<strong>余切函数</strong>：正弦 $y = \tan x$ ，定义域为 $x \neq k\pi + \frac{\pi}{2}$ ，余弦 $y = \cot x$ ，定义域为 $x \neq k\pi$ ，两个函数的最小正周期均为 $\pi$ ，且都是在其定义域内的奇函数。</p>
 <p>余切函数的图像：</p>
-<p><img data-src="./math/cot.jpg" alt="余切函数的图像"></p>
+<p><img src="/math/cot.jpg" alt="余切函数的图像"></p>
 </li>
 <li><p><strong>正割函数</strong>与<strong>余割函数</strong>：正割 $y = \sec x$ ，余割 $y = \csc x$<br>$$<br>\sec x = \frac{1}{\cos x},\quad \csc = \frac{1}{\sin x}<br>$$</p>
 <p>正割和余割的图像：</p>
-<p><img data-src="./math/sec-csc.jpg" alt="正割和余割的图像"></p>
+<p><img src="/math/sec-csc.jpg" alt="正割和余割的图像"></p>
 </li>
 </ul>
 </li>
@@ -91,13 +91,13 @@
 <ol>
 <li><p><strong>绝对值函数</strong>：<br>$<br>y = |x| =<br>\begin{cases} x &amp; x \ge 0 \\<br>-x &amp; x &lt; 0<br>\end{cases}<br>$</p>
 <p>其图像如下：</p>
-<img data-src="./math/avf.jpg" alt="绝对值函数" style="zoom:40%;">
+<img src="/math/avf.jpg" alt="绝对值函数" style="zoom:40%;">
 </li>
 <li><p><strong>符号函数</strong>：<br>$<br>y = \mathrm{sgn}\ x =<br>\begin{cases} x &amp; x \ge 0 \\<br>-x &amp; x &lt; 0<br>\end{cases}<br>$</p>
 </li>
 <li><p><strong>取整函数</strong>：$y = [x]$</p>
 <p>需要注意，$x - 1 &lt; [x] \le x$ ，且 $\lim\limits_{x \to 0^+} = 0,\quad \lim\limits_{x \to 0^-} = -1$ ，其图像如下：</p>
-<img data-src="./math/rounding_fun.png" alt="取整函数" style="zoom:36%;">
+<img src="/math/rounding_fun.png" alt="取整函数" style="zoom:36%;">
 
 </li>
 </ol>
