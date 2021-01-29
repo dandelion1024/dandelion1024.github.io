@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>lora-stm32</title>
+    <url>/lora-stm32/</url>
+    <content><![CDATA[<h2 id="一些术语"><a href="#一些术语" class="headerlink" title="一些术语"></a>一些术语</h2><p><strong>GPIO Pin</strong></p>
+<p>Pin就是引脚</p>
+<p><strong>GPIO Speed</strong></p>
+<p>GPIO 引脚速度，又称输出驱动电路的响应速度，芯片内部在I/O口的输出部分安排了多个响应速度不同的输出驱动电路，用户可以根据自己的需要选择合适的驱动电路，通过选择速度来选择不同的输出驱动模块，达到最佳的噪声控制和降低功耗的目的。</p>
+<p>可理解为 <strong>输出驱动电路的带宽</strong>，即一个驱动电路可以不失真地通过信号的最大频率。如果一个信号的频率超过了驱动电路的响应速度，就有可能信号失真。</p>
+<p><strong>RCC</strong></p>
+<p>RCC是STM32的时钟控制器，可开启或关闭各总线的时钟，在使用各外设功能必须先开启其对应的时钟，没有这个时钟内部的各器件就不能运行。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>数学基础</title>
+    <url>/math/</url>
+    <content><![CDATA[<p>记录一些数学基础知识，常识性的知识直接pass</p>
+<h2 id="高等数学部分"><a href="#高等数学部分" class="headerlink" title="高等数学部分"></a>高等数学部分</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="函数的概念和特性"><a href="#函数的概念和特性" class="headerlink" title="函数的概念和特性"></a>函数的概念和特性</h4><p><strong>函数</strong></p>
+<p>函数是像和原像都为非空数集的映射。</p>
+<p>相关概念：定义域 $D$、值域 $R$、自变量、因变量，对应法则。</p>
+<p><strong>函数三大要素</strong>：定义域、对应法则、值域。函数的定义域和对应法则是函数的两个<strong>基本要素</strong>，值域是<strong>派生要素</strong>。</p>
+<p><strong>反函数</strong></p>
+<p>$y=f(x)$ 的反函数记作 $x=f^{-1}(y)$，定义域为 $R$，值域为 $D$，需要注意如下两点：</p>
+<ol>
+<li><strong>严格单调函数必有反函数</strong></li>
+<li>若把 $x=f^{-1}(y)$ 与 $y=f(x)$ 的图像画在同一坐标系中，则它们完全重合，只有把 $y=f(x)$ 的反函数 $x=f^{-1}(y)$ 写成 $y=f^{-1}(x)$ 后，它们的图形才关于 $y = x$ 对称。</li>
+</ol>
+<p><strong>复合函数</strong></p>
+<p>略</p>
+<p><strong>函数的四种特性</strong></p>
+<ol>
+<li><p><strong>有界性</strong>：设 $f(x)$ 的定义域为 $D$，数集 $I \subset D$，如果存在某个正整数 $M$，使对任一 $x \in I$，有 $|f(x)| \le M$，则称 $f(x)$ 在 $I$ 上有界；如果这样的 $M$ 不存在，则称 $f(x)$ 在 $I$ 上无界。（<em>注：有界无界的讨论需要指明是在哪个区间，没有说区间是没法讨论的</em>）</p>
+</li>
+<li><p><strong>单调性</strong>：需要注意的是单调性的讨论也是需要指明区间的。</p>
+</li>
+<li><p><strong>奇偶性</strong>：关于 $y = 0$ 轴对称的函数为偶函数，关于原点中心对称的函数为奇函数。（数学定义略，主要理解函数对称性即可）。</p>
+<ul>
+<li>函数 $y = f(x)$ 关于直线 $x = T$ 对称的充分必要条件是：<br>$$<br>f(x) = f(2T-x)\ 或\ f(x + T) = f(T - x)<br>$$<br>（括号里的项加起来为 $2T$）</li>
+</ul>
+</li>
+<li><p><strong>周期性</strong>：略。</p>
+</li>
+</ol>
+<p><strong>几个重要结论</strong></p>
+<ol>
+<li>若 $f(x)$ 是可导的偶函数，则 $f’(x)$ 是奇函数；</li>
+<li>若 $f(x)$ 是可导的奇函数，则 $f’(x)$ 是偶函数；</li>
+<li>若 $f(x)$ 是可导的周期为 $T$ 的周期函数，则 $f’(x)$ 是以 $T$ 为周期的周期函数；</li>
+<li>连续的奇函数的一切原函数都是偶函数；</li>
+<li>连续的偶函数的原函数中仅有一个是原函数是奇函数；</li>
+<li>若连续函数 $f(x)$ 以 $T$ 为周期，且 $\int^T_0 f(x)\ dx = 0$ ，则 $f(x)$ 的一切原函数也以 $T$ 为周期；</li>
+<li>若 $f(x)$ 在有限区间 $(a,b)$ 内可导，且 $f’(x)$ 有界，则 $f(x)$ 在 $(a,b)$ 内有界。</li>
+</ol>
+<h4 id="基本初等函数和初等函数"><a href="#基本初等函数和初等函数" class="headerlink" title="基本初等函数和初等函数"></a>基本初等函数和初等函数</h4><p>基本初等函数有：常数函数、幂函数、指数函数、对数函数、三角函数、反三角函数。</p>
+<ul>
+<li><p><strong>常数函数</strong>：$y = A$ （$A$ 为常数）</p>
+</li>
+<li><p><strong>幂函数</strong>：$y = x^{\mu}$ （$\mu$ 是实数）</p>
+</li>
+<li><p><strong>指数函数</strong>：$y = a^x\ (x &gt; 0, a \neq 1)$ </p>
+</li>
+<li><p><strong>对数函数</strong>：$y = \log_a x\ (a &gt; 0, a \neq 1)$ ，是 $y = a^x$ 的反函数</p>
+</li>
+<li><p><strong>三角函数</strong>：</p>
+<ul>
+<li><p><strong>正弦函数</strong>与<strong>余弦函数</strong></p>
+</li>
+<li><p><strong>正切函数</strong>与<strong>余切函数</strong>：正弦 $y = \tan x$ ，定义域为 $x \neq k\pi + \frac{\pi}{2}$ ，余弦 $y = \cot x$ ，定义域为 $x \neq k\pi$ ，两个函数的最小正周期均为 $\pi$ ，且都是在其定义域内的奇函数。</p>
+<p>余切函数的图像：</p>
+<p><img data-src="./math/cot.jpg" alt="余切函数的图像"></p>
+</li>
+<li><p><strong>正割函数</strong>与<strong>余割函数</strong>：正割 $y = \sec x$ ，余割 $y = \csc x$<br>$$<br>\sec x = \frac{1}{\cos x},\quad \csc = \frac{1}{\sin x}<br>$$</p>
+<p>正割和余割的图像：</p>
+<p><img data-src="./math/sec-csc.jpg" alt="正割和余割的图像"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>反三角函数</strong>：</p>
+<ul>
+<li><strong>反正弦函数</strong>与<strong>反余弦函数</strong>：反正弦 $y = \arcsin x$ ，反余弦 $y = \arccos x$ </li>
+<li><strong>反正切函数</strong>与<strong>反余切函数</strong>：反正切 $y = \arctan x$ ，反余切 $\newcommand{\arccot}{\mathrm{arccot}\ }y = \arccot x$ </li>
+</ul>
+</li>
+</ul>
+<p><strong>初等函数</strong></p>
+<p>由基本初等函数经过<strong>有限次的四则运算</strong>，以及<strong>有限次的复合步骤</strong>所构成的并且可以由一个式子所表示的函数称为<strong>初等函数</strong>，</p>
+<p>初等函数的定义域可以是一个区间，也可以是几个区间的并集。</p>
+<h4 id="分段函数"><a href="#分段函数" class="headerlink" title="分段函数"></a>分段函数</h4><p>这里需要注意的是分段函数是一个函数，而不是多个函数。</p>
+<p>几个重要的分段函数：</p>
+<ol>
+<li><p><strong>绝对值函数</strong>：<br>$<br>y = |x| =<br>\begin{cases} x &amp; x \ge 0 \\<br>-x &amp; x &lt; 0<br>\end{cases}<br>$</p>
+<p>其图像如下：</p>
+<img data-src="./math/avf.jpg" alt="绝对值函数" style="zoom:40%;">
+</li>
+<li><p><strong>符号函数</strong>：<br>$<br>y = \mathrm{sgn}\ x =<br>\begin{cases} x &amp; x \ge 0 \\<br>-x &amp; x &lt; 0<br>\end{cases}<br>$</p>
+</li>
+<li><p><strong>取整函数</strong>：$y = [x]$</p>
+<p>需要注意，$x - 1 &lt; [x] \le x$ ，且 $\lim\limits_{x \to 0^+} = 0,\quad \lim\limits_{x \to 0^-} = -1$ ，其图像如下：</p>
+<img data-src="./math/rounding_fun.png" alt="取整函数" style="zoom:36%;">
+
+</li>
+</ol>
+<h4 id="图像的变换"><a href="#图像的变换" class="headerlink" title="图像的变换"></a>图像的变换</h4><ul>
+<li>平移变换</li>
+<li>对称变换</li>
+<li>伸缩变换</li>
+</ul>
+<h4 id="几个常见的图像"><a href="#几个常见的图像" class="headerlink" title="几个常见的图像"></a>几个常见的图像</h4><p><strong>心形线</strong></p>
+<p><strong>三叶玫瑰线</strong></p>
+<p><strong>阿基米德螺线（亦称等速螺线）</strong></p>
+<p><strong>摆线</strong></p>
+<p><strong>星形线</strong></p>
+<h4 id="数列基础"><a href="#数列基础" class="headerlink" title="数列基础"></a>数列基础</h4><p>等差数列</p>
+<ul>
+<li>通项公式：$a_n = a_1 + (n - 1)d$ </li>
+<li>前 $n$ 项和（两个公式）：<ul>
+<li>$S_n = a_1n + \displaystyle\frac{n(n-1)d}{2}$</li>
+<li>$S_n = \displaystyle\frac{(a_1 + a_n)n}{2}$</li>
+</ul>
+</li>
+</ul>
+<p>等比数列</p>
+<ul>
+<li><p>通项公式： $a_n = a_1^{n-1}$</p>
+</li>
+<li><p>前 $n$ 项和：<br>$S_n =<br>\begin{cases} na_1                       &amp; r = 1 \\ \displaystyle\frac{a_1(1 - r^n)}{1 - r} &amp; r \neq 1<br>\end{cases}<br>$</p>
+</li>
+</ul>
+<p>一些常见数列的前 $n$ 项和：</p>
+<p>$\displaystyle\sum\limits_{k=1}^n k = 1 + 2 + \ldots + n = \frac{n(n+1)}{2}$</p>
+<p>$\begin{align*}<br>\displaystyle\sum\limits_{k=1}^n k^2 &amp;= 1^2 + 2^2 + \ldots + n^2 \\<br>&amp;= \frac{n(n+1)(2n+1)}{6}<br>\end{align*}$</p>
+<p>$\displaystyle\sum\limits_{k=1}^n \frac{1}{k(k+1)} = \frac{n}{n+1}$ ， （列项相消法）</p>
+<h4 id="三角函数基础"><a href="#三角函数基础" class="headerlink" title="三角函数基础"></a>三角函数基础</h4><p><strong>三角函数基本关系</strong></p>
+<p>$\displaystyle \csc \alpha = \frac{1}{\sin \alpha}$ ，$\displaystyle \sec \alpha = \frac{1}{\cos \alpha}$ ，</p>
+<p>$\displaystyle \cot \alpha = \frac{1}{\tan \alpha}$ ，</p>
+<p>$\displaystyle \tan \alpha = \frac{\sin \alpha}{\cos \alpha}$ ， $\displaystyle \cot \alpha = \frac{\cos \alpha}{\sin \alpha}$ ，</p>
+<p>$\sin^2\alpha + \cos^2\alpha = 1$ ，</p>
+<p>$1 + \tan^2\alpha = \sec^2\alpha = \displaystyle\frac{1}{\cos^2 \alpha}$ ，</p>
+<p>$1 + \cot^2\alpha = \csc^2\alpha = \displaystyle\frac{1}{\sin^2 \alpha}$</p>
+<p><strong>诱导公式</strong></p>
+<p>奇变偶不变，符号看象限。</p>
+<p><strong>倍角公式</strong></p>
+<p>$\sin 2\alpha = 2\sin \alpha \cos \alpha$ ，</p>
+<p>$\begin{align*}<br>\cos2\alpha &amp;= \cos^2\alpha - \sin^2\alpha \\<br>&amp;= 2\cos^2\alpha - 1 \\<br>&amp;= 1 - 2\sin^2\alpha<br>\end{align*}$ ，</p>
+<p>$\sin 3\alpha = -4\sin^3\alpha + 3\sin\alpha$ ，</p>
+<p>$\cos3\alpha = 4\cos^3\alpha - 3\cos\alpha$ ，</p>
+<p>$\tan2\alpha = \displaystyle\frac{2\tan\alpha}{1 - \tan^2\alpha}$ ，</p>
+<p>$\cot2\alpha = \displaystyle\frac{\cot^2\alpha - 1}{2\cot\alpha}$ </p>
+<p><strong>半角公式</strong></p>
+<p>$\displaystyle\sin^2\frac{\alpha}{2} = \frac{1}{2}(1 - \cos\alpha)$ ，</p>
+<p>$\displaystyle\cos^2\frac{\alpha}{2} = \frac{1}{2}(1 + \cos\alpha)$ ，</p>
+<p>$\displaystyle\sin\frac{\alpha}{2} = \pm \sqrt{\frac{1 - \cos\alpha}{2}}$ ，</p>
+<p>$\displaystyle\cos\frac{\alpha}{2} = \pm \sqrt{\frac{1 + \cos\alpha}{2}}$ ，</p>
+<p>$<br>\tan\frac{\alpha}{2} = \frac{1 - \cos\alpha}{\sin\alpha}<br>= \frac{\sin\alpha}{1 + \cos\alpha}<br>= \pm \sqrt{\frac{1 - \cos\alpha}{1 + \cos\alpha}}<br>$</p>
+<p>$<br>\cot\frac{\alpha}{2} = \frac{\sin\alpha}{1 - \cos\alpha}<br>= \frac{1 + \cos\alpha}{\sin\alpha}<br>= \pm \sqrt{\frac{1 + \cos\alpha}{1 - \cos\alpha}}<br>$</p>
+<p><strong>两角和差公式</strong></p>
+<p>$\sin(\alpha \pm \beta) = \sin\alpha\cos\beta \pm \cos\alpha\sin\beta$ ，</p>
+<p>$\cos(\alpha \pm \beta) = \cos\alpha\cos\beta \mp \sin\alpha\sin\beta$ ，</p>
+<p>$\displaystyle\tan(\alpha \pm \beta) = \frac{\tan(\alpha \pm \beta)}{1 \mp \tan\alpha\tan\beta}$ ，</p>
+<p>$\displaystyle\cot(\alpha \pm \beta) = \frac{\cot\alpha\cot\beta \mp 1}{\cot\beta \pm \cot\alpha}$</p>
+<p><strong>和差化积公式</strong></p>
+<p>$\displaystyle\sin\alpha + \sin\beta = 2\sin\frac{\alpha + \beta}{2} \cos\frac{\alpha - \beta}{2}$ ，</p>
+<p>$\displaystyle\sin\alpha - \sin\beta = 2\sin\frac{\alpha - \beta}{2} \cos\frac{\alpha + \beta}{2}$  ，</p>
+<p>$\displaystyle\cos\alpha + \cos\beta = 2\cos\frac{\alpha + \beta}{2} \cos\frac{\alpha - \beta}{2}$  ，</p>
+<p>$\displaystyle\cos\alpha - \cos\beta = -2\sin\frac{\alpha + \beta}{2} \sin\frac{\alpha - \beta}{2}$ </p>
+<p><strong>积化和差公式</strong></p>
+<p>$\displaystyle\sin\alpha\cos\beta = \frac{1}{2}[\sin(\alpha + \beta) + \sin(\alpha - \beta)]$ ，</p>
+<p>$\displaystyle\cos\alpha\sin\beta = \frac{1}{2}[\sin(\alpha + \beta) - \sin(\alpha - \beta)]$ ，</p>
+<p>$\displaystyle\cos\alpha\cos\beta = \frac{1}{2}[\cos(\alpha + \beta) + \cos(\alpha - \beta)]$ ，</p>
+<p>$\displaystyle\sin\alpha\sin\beta = \frac{1}{2}[\cos(\alpha - \beta) - \cos(\alpha + \beta)]$ </p>
+<p><strong>万能公式</strong></p>
+<p>若 $\displaystyle\mu = \tan\frac{x}{2}\ (-\pi &lt; x &lt; \pi)$ ，则 $\displaystyle\sin x = \frac{2\mu}{1 + \mu^2}$ ，$\displaystyle\cos x = \frac{1 - \mu^2}{1 + \mu^2}$</p>
+<h4 id="指数运算"><a href="#指数运算" class="headerlink" title="指数运算"></a>指数运算</h4><p>略</p>
+<h4 id="对数运算"><a href="#对数运算" class="headerlink" title="对数运算"></a>对数运算</h4><p><strong>基本运算</strong></p>
+<p>$\log_2(MN) = \log_aM + \log_aN$ ，</p>
+<p>$\displaystyle\log_2(\frac MN) = \log_aM - \log_aN$ ，</p>
+<p>$\log_aM^n = n\log_aM$ ，</p>
+<p>$\displaystyle\log_a\sqrt[n]M = \frac{1}{n}\log_aM$</p>
+<p><strong>换底公式</strong></p>
+<p> $\displaystyle\log_ab = \frac{\log_cb}{\log_ca}$</p>
+<h4 id="一元二次方程基础"><a href="#一元二次方程基础" class="headerlink" title="一元二次方程基础"></a>一元二次方程基础</h4><p><strong>判别式</strong></p>
+<p>$\Delta = b^2 - 4ac$</p>
+<ul>
+<li>当 $\Delta &lt; 0$ 时，方程有两个共轭的复根；</li>
+<li>$\Delta = 0$ 时，方程有两个相等的实根；</li>
+<li>$\Delta &gt; 0$ 时，方程有两个不等的实根。</li>
+</ul>
+<p><strong>求根公式</strong></p>
+<p>$\displaystyle x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
+<p><strong>韦达定理</strong></p>
+<p>$\displaystyle x_1 + x_2 = -\frac{b}{a}$</p>
+<p>$\displaystyle x_1x_2 = \frac{c}{a}$</p>
+<p><strong>对应的一元二次方程</strong></p>
+<p>$y = ax^2 + bx + c\ (a \neq 0)$ </p>
+<p>图像的对称轴为 $\displaystyle x = (-\frac{b}{2a})$ ，其顶点坐标为 $\displaystyle(-\frac{b}{2a}, c - \frac{b^2}{4a})$  </p>
+<h4 id="因式分解相关"><a href="#因式分解相关" class="headerlink" title="因式分解相关"></a>因式分解相关</h4><p><strong>平方和差与立方和差公式</strong></p>
+<p>$(a + b)^2 = a^2 + 2ab + b^2$ ，</p>
+<p>$(a - b)^2 = a^2 - 2ab + b^2$</p>
+<p>$(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$ ，</p>
+<p>$(a - b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$</p>
+<p><strong>完全平方与完全立方公式</strong></p>
+<p>$a^2 - b^2 = (a - b)(a + b)$ ，</p>
+<p>$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$ ，</p>
+<p>$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$ </p>
+<p><strong>两项 n 次方之和与之差</strong></p>
+<p>$a^n -b^n = (a - b)(a^{n-1} + a^{n-2}b + \ldots + ab^{n-2} + b^{n-1})$，$n$ 是正整数 </p>
+<p>$n$ 为正偶数时，$a^n -b^n = (a + b)(a^{n-1} - a^{n-2}b + \ldots + ab^{n-2} - b^{n-1})$</p>
+<p>$n$ 为正奇数时，$a^n + b^n = (a + b)(a^{n-1} - a^{n-2}b + \ldots - ab^{n-2} + b^{n-1})$</p>
+<p><strong>二项式定理</strong></p>
+<p>$\displaystyle(a + b)^n = \sum\limits_{k=0}^n{ C_{n}^{k} a^{n-k}b^{k} }$</p>
+<h4 id="阶乘与双阶乘"><a href="#阶乘与双阶乘" class="headerlink" title="阶乘与双阶乘"></a>阶乘与双阶乘</h4><p>$n! = 1 \cdot 2 \cdot 3 \cdot \ldots\cdot n$ ，规定 $0! = 1$ </p>
+<p>$(2n)!! = 2 \cdot 4 \cdot 6 \cdot \ldots \cdot (2n) = 2^n \cdot n!$ </p>
+<p>$(2n-1)!! = 1 \cdot 3 \cdot \cdot 5 \cdot \ldots \cdot (2n-1)$ </p>
+<h4 id="常用不等式"><a href="#常用不等式" class="headerlink" title="常用不等式"></a>常用不等式</h4><p><strong>绝对值不等式</strong></p>
+<ul>
+<li>$|a \pm b| \le |a| + |b|$ </li>
+<li>$||a| - |b|| \le |a - b|$</li>
+</ul>
+<p>对于第一个不等式，若是离散的，可由两项推广到 $n$ 项。若是连续的，设 $f(x)$ 在 $[a, b](a &lt; b)$ 上可积，则：</p>
+<p>$\displaystyle |\int_a^b f(x)\ dx| \le \int_a^b |f(x)|\ dx$</p>
+<p><strong>基本不等式</strong></p>
+<p><strong>三角函数相关</strong></p>
+<p><strong>自然对数相关</strong></p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10开发环境打造——含WSL</title>
+    <url>/win10dev/</url>
+    <content><![CDATA[<p>温馨提示：</p>
+<ul>
+<li>win10可以直接按下win键，然后打字搜索来快速打开某个应用</li>
+<li>最好自己准备一个梯子，国内有些网站的访问速度太慢</li>
+</ul>
+<p>bilibili：</p>
+<ul>
+<li>上： <a href="https://www.bilibili.com/video/BV11o4y1o7x7">https://www.bilibili.com/video/BV11o4y1o7x7</a></li>
+<li>下： <a href="https://www.bilibili.com/video/BV1gX4y1T7gQ">https://www.bilibili.com/video/BV1gX4y1T7gQ</a></li>
+</ul>
+<h2 id="Linux子系统"><a href="#Linux子系统" class="headerlink" title="Linux子系统"></a>Linux子系统</h2><h3 id="安装和开启"><a href="#安装和开启" class="headerlink" title="安装和开启"></a>安装和开启</h3><p>在 <code>控制面版下</code> 的 <code>启动或关闭windows功能</code> 中 开启功能后重启，然后在微软商店安装即可。</p>
+<h3 id="图形界面"><a href="#图形界面" class="headerlink" title="图形界面"></a>图形界面</h3><p>百度搜索 <strong>VcXsrv</strong> </p>
+<p>下载地址：<a href="https://sourceforge.net/projects/vcxsrv/">https://sourceforge.net/projects/vcxsrv/</a></p>
+<h3 id="用win的文件管理器打开linux目录的方法"><a href="#用win的文件管理器打开linux目录的方法" class="headerlink" title="用win的文件管理器打开linux目录的方法"></a>用win的文件管理器打开linux目录的方法</h3><p>在文件管理器地址中输入 <code>\\wsl$\&lt;子系统名&gt;\</code> 回车，即可进入子系统的根目录下，比如Ubuntu，就是<code>\\wsl$\Ubuntu\</code></p>
+<h3 id="在linux终端中访问win的文件"><a href="#在linux终端中访问win的文件" class="headerlink" title="在linux终端中访问win的文件"></a>在linux终端中访问win的文件</h3><ul>
+<li>方法一：使用linux终端，cd到 <code>/mnt/</code> 目录下，里面有 c,d,e,…等目录，那些对应win的盘符，直接cd进去即可。</li>
+<li>方法二：在win的文件管理器中打开对应的目录，然后按住 <code>shift</code> 键的同时鼠标右击目录空白处，选择 <code>在此处打开Linux shell</code>。</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>wsl 装好后，就可以直接当作一个只有终端的 linux 来使用了，至于换源，怎么安装软件，那是 Linux 的操作了，这里不多加阐述，主要还是 win10。</p>
+<h2 id="windows-terminal"><a href="#windows-terminal" class="headerlink" title="windows terminal"></a>windows terminal</h2><h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p>文档地址：<a href="https://docs.microsoft.com/zh-cn/windows/terminal/">https://docs.microsoft.com/zh-cn/windows/terminal/</a></p>
+<h3 id="配置样例"><a href="#配置样例" class="headerlink" title="配置样例"></a>配置样例</h3><p><em>注意下面的注释，有些东西是不能直接照抄的。</em></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;$schema&quot;</span>: <span class="string">&quot;https://aka.ms/terminal-profiles-schema&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;defaultProfile&quot;</span>: <span class="string">&quot; 这个部分参考你电脑原来的，不要乱改动&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;copyOnSelect&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;copyFormatting&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;theme&quot;</span>: <span class="string">&quot;dark&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;profiles&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;defaults&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;cursorShape&quot;</span>: <span class="string">&quot;filledBox&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;useAcrylic&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">&quot;acrylicOpacity&quot;</span>: <span class="number">0.9</span>,</span><br><span class="line">            <span class="attr">&quot;colorScheme&quot;</span>: <span class="string">&quot;Dracula&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;list&quot;</span>: [</span><br><span class="line">            <span class="comment">// 这个部分参考你电脑原来的，不要乱改动</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;schemes&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Dracula&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;cursorColor&quot;</span>: <span class="string">&quot;#F8F8F2&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;selectionBackground&quot;</span>: <span class="string">&quot;#44475A&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;background&quot;</span>: <span class="string">&quot;#282A36&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;foreground&quot;</span>: <span class="string">&quot;#F8F8F2&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;black&quot;</span>: <span class="string">&quot;#21222C&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;blue&quot;</span>: <span class="string">&quot;#BD93F9&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;cyan&quot;</span>: <span class="string">&quot;#8BE9FD&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;green&quot;</span>: <span class="string">&quot;#50FA7B&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;purple&quot;</span>: <span class="string">&quot;#FF79C6&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;red&quot;</span>: <span class="string">&quot;#FF5555&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;white&quot;</span>: <span class="string">&quot;#F8F8F2&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;yellow&quot;</span>: <span class="string">&quot;#F1FA8C&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;brightBlack&quot;</span>: <span class="string">&quot;#6272A4&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;brightBlue&quot;</span>: <span class="string">&quot;#D6ACFF&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;brightCyan&quot;</span>: <span class="string">&quot;#A4FFFF&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;brightGreen&quot;</span>: <span class="string">&quot;#69FF94&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;brightPurple&quot;</span>: <span class="string">&quot;#FF92DF&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;brightRed&quot;</span>: <span class="string">&quot;#FF6E6E&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;brightWhite&quot;</span>: <span class="string">&quot;#FFFFFF&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;brightYellow&quot;</span>: <span class="string">&quot;#FFFFA5&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;actions&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;command&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;action&quot;</span>: <span class="string">&quot;copy&quot;</span>,</span><br><span class="line">                <span class="attr">&quot;singleLine&quot;</span>: <span class="literal">false</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">&quot;keys&quot;</span>: <span class="string">&quot;ctrl+shift+c&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;command&quot;</span>: <span class="string">&quot;paste&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;keys&quot;</span>: <span class="string">&quot;ctrl+shift+v&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;command&quot;</span>: <span class="string">&quot;find&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;keys&quot;</span>: <span class="string">&quot;ctrl+shift+f&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;command&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;action&quot;</span>: <span class="string">&quot;splitPane&quot;</span>,</span><br><span class="line">                <span class="attr">&quot;split&quot;</span>: <span class="string">&quot;auto&quot;</span>,</span><br><span class="line">                <span class="attr">&quot;splitMode&quot;</span>: <span class="string">&quot;duplicate&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">&quot;keys&quot;</span>: <span class="string">&quot;alt+shift+d&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="scoop"><a href="#scoop" class="headerlink" title="scoop"></a>scoop</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Invoke-Expression</span> (<span class="built_in">New-Object</span> System.Net.WebClient).DownloadString(<span class="string">&#x27;https://get.scoop.sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者用下面这个</span></span><br><span class="line"><span class="built_in">iwr</span> <span class="literal">-useb</span> get.scoop.sh | <span class="built_in">iex</span></span><br></pre></td></tr></table></figure>
+<p>如果报错的话，可能在此之前还要执行下面的命令（根据终端给出的提示来做）</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-ExecutionPolicy</span> RemoteSigned <span class="literal">-Scope</span> CurrentUser</span><br></pre></td></tr></table></figure>
+<h3 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h3><p>需要自备梯子，然后下面的地址和端口号根据实际情况设置。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">scoop config proxy <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">10080</span></span><br></pre></td></tr></table></figure>
+<h3 id="取消代理"><a href="#取消代理" class="headerlink" title="取消代理"></a>取消代理</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">scoop config <span class="built_in">rm</span> proxy</span><br></pre></td></tr></table></figure>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">scoop install git</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="卸载软件"><a href="#卸载软件" class="headerlink" title="卸载软件"></a>卸载软件</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">scoop uninstall git</span><br></pre></td></tr></table></figure>
+<h3 id="文档地址"><a href="#文档地址" class="headerlink" title="文档地址"></a>文档地址</h3><p>scoop 文档地址：<a href="https://github.com/lukesampson/scoop/wiki">https://github.com/lukesampson/scoop/wiki</a></p>
+<h2 id="解决wsl与win10之间环境变量混用"><a href="#解决wsl与win10之间环境变量混用" class="headerlink" title="解决wsl与win10之间环境变量混用"></a>解决wsl与win10之间环境变量混用</h2><p>wsl会自动把windows的path环境变量追加到自己的path中，避免这种情况的方法如下：</p>
+<p>在 wsl 中编辑 <code>/etc/wsl.conf</code> （没有就创建一个），写入如下配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[interop]</span><br><span class="line">enabled=<span class="literal">false</span></span><br><span class="line">appendWindowsPath=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>以管理员的身份运行powershell，并重启LxssManager：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">net stop LxssManager</span><br><span class="line">net start LxssManager</span><br></pre></td></tr></table></figure>
+<p>或者用 scoop 安装一个 sudo，用 sudo 来运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo net stop LxssManager</span><br><span class="line">sudo net start LxssManager</span><br></pre></td></tr></table></figure>
+<h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><h3 id="MinGW安装"><a href="#MinGW安装" class="headerlink" title="MinGW安装"></a>MinGW安装</h3><p>mingw 是一个开发工具链，包含了 <code>gcc</code> 编译器以及工具 <code>make</code></p>
+<p>下载地址：<a href="https://sourceforge.net/projects/mingw-w64/files/mingw-w64/">https://sourceforge.net/projects/mingw-w64/files/mingw-w64/</a></p>
+<p>make 命令需要把 mingw 安装目录下的 bin 目录中的 <code>mingw32-make.exe</code> 改名为 <code>make.exe</code> ，复制一份改好名后放回去也行。</p>
+<h3 id="CMake安装"><a href="#CMake安装" class="headerlink" title="CMake安装"></a>CMake安装</h3><p>cmake 是一个项目构建工具，可用其生成 Makefile，著名的集成开发环境 CLion 就是基于 cmake 来组织项目的。</p>
+<p>下载地址：<a href="https://cmake.org/download/">https://cmake.org/download/</a></p>
+<p>可以下载压缩包版本，手动配置环境变量。</p>
+<h3 id="openjdk11安装"><a href="#openjdk11安装" class="headerlink" title="openjdk11安装"></a>openjdk11安装</h3><p>下载地址：<a href="http://jdk.java.net/">http://jdk.java.net/</a></p>
+<p>注意：这个网站的 openjdk8 win版本只有 i586 的（只有32位），可以考虑  openjdk11，或者下载源代码自己编译。</p>
+<p>下载好后解压便是一个完整的jdk，放到喜欢的位置后，配置环境变量即可。</p>
+<h3 id="llvm"><a href="#llvm" class="headerlink" title="llvm"></a>llvm</h3><p>LLVM项目是模块化、可重用的编译器以及工具链技术的集合，里面有 <code>clang</code>，<code>clang-format</code>，<code>clangd</code> 等工具。</p>
+<p>下载地址：</p>
+<ul>
+<li>官网：<a href="https://releases.llvm.org/">https://releases.llvm.org/</a></li>
+<li>github：<a href="https://github.com/llvm/llvm-project/releases">https://github.com/llvm/llvm-project/releases</a></li>
+</ul>
+<p>建议下载release版本，不要下载rc版本（Release Candidate）</p>
+<p>附上一个 clang-format 配置文件（clang-format具体怎么用，自行百度，或者使用vscode内部的设置进行简单的调整）</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">Cpp</span></span><br><span class="line"><span class="attr">BasedOnStyle:</span> <span class="string">LLVM</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># c++的标准</span></span><br><span class="line"><span class="attr">Standard:</span> <span class="string">Latest</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 缩进的宽度</span></span><br><span class="line"><span class="attr">IndentWidth:</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># case相对于switch的花括号缩进</span></span><br><span class="line"><span class="attr">IndentCaseLabels:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># goto标签缩进</span></span><br><span class="line"><span class="attr">IndentGotoLabels:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对预处理部分的缩进方法，如#ifdef</span></span><br><span class="line"><span class="attr">IndentPPDirectives:</span> <span class="string">AfterHash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果函数定义或声明在类型之后，则缩进</span></span><br><span class="line"><span class="attr">IndentWrappedFunctionNames:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造函数初始值设定项列表和继承列表的缩进</span></span><br><span class="line"><span class="attr">ConstructorInitializerIndentWidth:</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连续行的缩进宽度</span></span><br><span class="line"><span class="attr">ContinuationIndentWidth:</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 命名空间是否缩进</span></span><br><span class="line"><span class="attr">NamespaceIndentation:</span> <span class="string">None</span></span><br><span class="line"></span><br><span class="line"><span class="attr">TabWidth:</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用\r\n代替\n</span></span><br><span class="line"><span class="attr">UseCRLF:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 什么时候有使用tab</span></span><br><span class="line"><span class="attr">UseTab:</span> <span class="string">Never</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据上下文获取指针对齐方式</span></span><br><span class="line"><span class="attr">DerivePointerAlignment:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指针和引用符号对齐，Left是int* a, Right是int *a，Middle是int * a</span></span><br><span class="line"><span class="attr">PointerAlignment:</span> <span class="string">Right</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># C风格强转中插入空格，如(int) a，若为false，则(int)a</span></span><br><span class="line"><span class="attr">SpaceAfterCStyleCast:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># !后面插入空格</span></span><br><span class="line"><span class="attr">SpaceAfterLogicalNot:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 泛型后插入空格，如 queue &lt;int&gt;，若为false，则queue&lt;int&gt;</span></span><br><span class="line"><span class="attr">SpaceAfterTemplateKeyword:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若为true，int a = 1，若为false，int a= 1</span></span><br><span class="line"><span class="attr">SpaceBeforeAssignmentOperators:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用花括号初始化时候的花括号前面插入空格</span></span><br><span class="line"><span class="attr">SpaceBeforeCpp11BracedList:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># c++构造器的冒号之前插入空格</span></span><br><span class="line"><span class="attr">SpaceBeforeCtorInitializerColon:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># c++表示继承的冒号之前插入一个空格</span></span><br><span class="line"><span class="attr">SpaceBeforeInheritanceColon:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在控制语句后面插入空格, 比如if的后面</span></span><br><span class="line"><span class="attr">SpaceBeforeParens:</span> <span class="string">ControlStatements</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># for each风格的循环中的冒号前插入空格，如for (auto a : b)</span></span><br><span class="line"><span class="attr">SpaceBeforeRangeBasedForLoopColon:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># case后面的冒号之前插入空格(低点的版本不支持这个)</span></span><br><span class="line"><span class="comment">#SpaceBeforeCaseColon: false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 空白的代码块内插入空格，如&#123; &#125;</span></span><br><span class="line"><span class="attr">SpaceInEmptyBlock:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 空白的小括号内插入空格</span></span><br><span class="line"><span class="attr">SpaceInEmptyParentheses:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在注释符号后插入空格，如 // 和 /* 后, 以及 */ 前</span></span><br><span class="line"><span class="attr">SpacesBeforeTrailingComments:</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 尖括号内前后插入空格</span></span><br><span class="line"><span class="attr">SpacesInAngles:</span>  <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 条件语句小括号前后是否插入空格，如if ( true )和if (true)</span></span><br><span class="line"><span class="attr">SpacesInConditionalStatement:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器声明内前后插入空格，如[ 1, 2. 3 ]和[1, 2, 3]</span></span><br><span class="line"><span class="attr">SpacesInContainerLiterals:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">SpaceBeforeCpp11BracedList:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># C风格强转的小括号内前后插入空格</span></span><br><span class="line"><span class="attr">SpacesInCStyleCastParentheses:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 小括号内前后插入空格</span></span><br><span class="line"><span class="attr">SpacesInParentheses:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方括号内前后插入空格</span></span><br><span class="line"><span class="attr">SpacesInSquareBrackets:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方括号前面插入空格</span></span><br><span class="line"><span class="attr">SpaceBeforeSquareBrackets:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问修饰符的额外缩进如public，比如前面设置了4，现在设为-4就是0了</span></span><br><span class="line"><span class="attr">AccessModifierOffset:</span> <span class="number">-4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在开括号后水平对齐参数，用于参数声明换行的时候</span></span><br><span class="line"><span class="attr">AlignAfterOpenBracket:</span> <span class="string">Align</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对齐连续的C/C++预处理器宏</span></span><br><span class="line"><span class="attr">AlignConsecutiveMacros:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对齐连续的赋值运算符</span></span><br><span class="line"><span class="attr">AlignConsecutiveAssignments:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对齐连选的声明语句</span></span><br><span class="line"><span class="attr">AlignConsecutiveDeclarations:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用反斜杠换行的时候反斜杠对齐</span></span><br><span class="line"><span class="attr">AlignEscapedNewlines:</span> <span class="string">Left</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对齐操作符</span></span><br><span class="line"><span class="attr">AlignOperands:</span>   <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对齐尾部注释</span></span><br><span class="line"><span class="attr">AlignTrailingComments:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将所有参数放到下一行</span></span><br><span class="line"><span class="attr">AllowAllArgumentsOnNextLine:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将所有构造器放到下一行</span></span><br><span class="line"><span class="attr">AllowAllConstructorInitializersOnNextLine:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将所有参数声明放到下一行</span></span><br><span class="line"><span class="attr">AllowAllParametersOfDeclarationOnNextLine:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 总是把短的代码块放到同一行</span></span><br><span class="line"><span class="attr">AllowShortBlocksOnASingleLine:</span> <span class="string">Always</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把短的case放到同一行</span></span><br><span class="line"><span class="attr">AllowShortCaseLabelsOnASingleLine:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把短的枚举放到同一行(低点的版本不支持这个)</span></span><br><span class="line"><span class="comment">#AllowShortEnumsOnASingleLine: true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把所有短的函数放到同一行</span></span><br><span class="line"><span class="attr">AllowShortFunctionsOnASingleLine:</span> <span class="string">All</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把所有短的Lambda表达式放同一行</span></span><br><span class="line"><span class="attr">AllowShortLambdasOnASingleLine:</span> <span class="string">All</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># if后跟单个语句的时候放同一行</span></span><br><span class="line"><span class="attr">AllowShortIfStatementsOnASingleLine:</span> <span class="string">Always</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环中只有单个语句的时候放同一行</span></span><br><span class="line"><span class="attr">AllowShortLoopsOnASingleLine:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个选项已被官方废弃</span></span><br><span class="line"><span class="comment">#AlwaysBreakAfterDefinitionReturnType: None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回值类型的声明另起一行</span></span><br><span class="line"><span class="attr">AlwaysBreakAfterReturnType:</span> <span class="string">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在多行字符串文字之前换行</span></span><br><span class="line"><span class="attr">AlwaysBreakBeforeMultilineStrings:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模板声明的时候template语句另起一行</span></span><br><span class="line"><span class="attr">AlwaysBreakTemplateDeclarations:</span> <span class="literal">Yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果为false，则函数调用的参数要么全部在同一行上，要么各有一行。</span></span><br><span class="line"><span class="attr">BinPackArguments:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果为false，则函数声明或函数定义的参数要么全部在同一行上，要么各有一行。</span></span><br><span class="line"><span class="attr">BinPackParameters:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 花括号前的换行规则，</span></span><br><span class="line"><span class="comment"># Attach, Linux, Mozilla, Stroustrup, Allman, Whitesmiths, GNU, WebKit, Custom</span></span><br><span class="line"><span class="attr">BreakBeforeBraces:</span> <span class="string">Linux</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 花括号的包裹规则，当BreakBeforeBraces为Custom时生效</span></span><br><span class="line"><span class="attr">BraceWrapping:</span></span><br><span class="line">  <span class="attr">AfterCaseLabel:</span>  <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterClass:</span>      <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterControlStatement:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterEnum:</span>       <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterFunction:</span>   <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterNamespace:</span>  <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterObjCDeclaration:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterStruct:</span>     <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterUnion:</span>      <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterExternBlock:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeCatch:</span>     <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeElse:</span>      <span class="literal">false</span></span><br><span class="line">  <span class="attr">IndentBraces:</span>    <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyFunction:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyRecord:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyNamespace:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 二元运算符前面那个位置的换行规则</span></span><br><span class="line"><span class="attr">BreakBeforeBinaryOperators:</span> <span class="string">All</span></span><br><span class="line"></span><br><span class="line"><span class="attr">BreakBeforeInheritanceComma:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类的继承列表的换行规则，此处设置为在分号之前</span></span><br><span class="line"><span class="attr">BreakInheritanceList:</span> <span class="string">BeforeColon</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 三元运算符前换行</span></span><br><span class="line"><span class="attr">BreakBeforeTernaryOperators:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">BreakConstructorInitializersBeforeComma:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造器的换行规则，此处设置为在分号之前</span></span><br><span class="line"><span class="attr">BreakConstructorInitializers:</span> <span class="string">BeforeColon</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将过长的字符串拆成多行</span></span><br><span class="line"><span class="attr">BreakStringLiterals:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 单行的长度限制</span></span><br><span class="line"><span class="attr">ColumnLimit:</span>     <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 正则表达式，用于描述具有特殊含义的注释，不应拆分成行或以其他方式进行更改。</span></span><br><span class="line"><span class="attr">CommentPragmas:</span>  <span class="string">&#x27;^ IWYU pragma:&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果为true，则连续的命名空间声明将位于同一行</span></span><br><span class="line"><span class="attr">CompactNamespaces:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造函数中调用的所有构造器放到同一行</span></span><br><span class="line"><span class="attr">ConstructorInitializerAllOnOneLineOrOnePerLine:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Cpp11BracedListStyle:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据上下文获行结尾是 \r\n 还是 \n</span></span><br><span class="line"><span class="attr">DeriveLineEnding:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">DisableFormat:</span>   <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ExperimentalAutoDetectBinPacking:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果为true，则会添加缺少的命名空间结束注释，并修复无效的现有注释</span></span><br><span class="line"><span class="attr">FixNamespaceComments:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个宏向量，里面这些内容应该被解释为foreach循环而不是函数调用。</span></span><br><span class="line"><span class="attr">ForEachMacros:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">foreach</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Q_FOREACH</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">BOOST_FOREACH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个宏向量，里面这些内容应该被解释为完整的语句</span></span><br><span class="line"><span class="attr">StatementMacros:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Q_UNUSED</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">QT_REQUIRE_VERSION</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对注释重排</span></span><br><span class="line"><span class="attr">ReflowComments:</span>  <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对c++的using语句进行排序</span></span><br><span class="line"><span class="attr">SortUsingDeclarations:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对头文件排序</span></span><br><span class="line"><span class="attr">SortIncludes:</span>    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 头文件引入语句排序并重新分组</span></span><br><span class="line"><span class="attr">IncludeBlocks:</span>   <span class="string">Regroup</span></span><br><span class="line"></span><br><span class="line"><span class="attr">IncludeCategories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^&quot;(llvm|llvm-c|clang|clang-c)/&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">2</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">0</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^(&lt;|&quot;(gtest|gmock|isl|json)/)&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">3</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">0</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;.*&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">1</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">IncludeIsMainRegex:</span> <span class="string">&#x27;(Test)?$&#x27;</span></span><br><span class="line"><span class="attr">IncludeIsMainSourceRegex:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保留代码块开头的空行</span></span><br><span class="line"><span class="attr">KeepEmptyLinesAtTheStartOfBlocks:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">MacroBlockBegin:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">MacroBlockEnd:</span>   <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最大空行数目</span></span><br><span class="line"><span class="attr">MaxEmptyLinesToKeep:</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">PenaltyBreakAssignment:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">PenaltyBreakBeforeFirstCallParameter:</span> <span class="number">19</span></span><br><span class="line"><span class="attr">PenaltyBreakComment:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">PenaltyBreakFirstLessLess:</span> <span class="number">120</span></span><br><span class="line"><span class="attr">PenaltyBreakString:</span> <span class="number">1000</span></span><br><span class="line"><span class="attr">PenaltyBreakTemplateDeclaration:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">PenaltyExcessCharacter:</span> <span class="number">1000000</span></span><br><span class="line"><span class="attr">PenaltyReturnTypeOnItsOwnLine:</span> <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">JavaScript</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ColumnLimit:</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JS使用单引号</span></span><br><span class="line"><span class="attr">JavaScriptQuotes:</span> <span class="string">Single</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将impot语句包裹起来</span></span><br><span class="line"><span class="attr">JavaScriptWrapImports:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">IndentWidth:</span> <span class="number">4</span></span><br><span class="line"><span class="attr">IndentCaseLabels:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">IndentGotoLabels:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">IndentPPDirectives:</span> <span class="string">AfterHash</span></span><br><span class="line"><span class="attr">IndentWrappedFunctionNames:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">NamespaceIndentation:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">TabWidth:</span> <span class="number">4</span></span><br><span class="line"><span class="attr">UseCRLF:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">UseTab:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">SpacesInContainerLiterals:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">Java</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ColumnLimit:</span> <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># java导包分组</span></span><br><span class="line"><span class="attr">JavaImportGroups:</span> [<span class="string">&#x27;com&#x27;</span>, <span class="string">&#x27;org&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对import排序的时候,static import放到哪(低点的版本不支持这个)</span></span><br><span class="line"><span class="comment">#SortJavaStaticImport: After</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在Java文件中的字段上，在每个注释之后打断。</span></span><br><span class="line"><span class="attr">BreakAfterJavaFieldAnnotations:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h3><p>下载地址：<a href="https://code.visualstudio.com/#alt-downloads">https://code.visualstudio.com/#alt-downloads</a> </p>
+<p>建议下载 System Installer 。</p>
+<p>我的插件列表（按需安装，适当关闭，避免vscode太卡）：</p>
+<ul>
+<li>Chinese (Simplified) Language Pack for Visual Studio Code （中文语言包）</li>
+<li>Dracula Official （德古拉主题）</li>
+<li>Markdown All in One （写Markdown必备）</li>
+<li>Visual Studio IntelliCode （基于AI的代码提示）</li>
+<li>Vim （vim插件）</li>
+<li>C/C++ （C/C++语言支持）</li>
+<li>Clang-Format （C/C++代码格式化）</li>
+<li>clangd （使用clangd的代码补全）</li>
+<li>CMake （cmake语言支持）</li>
+<li>CMake Tools （cmake扩展工具）</li>
+<li>HTML CSS Support （html和css语言包支持）</li>
+<li>HTML Snippets （html代码块）</li>
+<li>JavaScript (ES6) code snippets （js代码块）</li>
+<li>Live Server （边修改边预览，web前端开发必备）</li>
+<li>Java Extension Pack （java开发扩展包，里面包含了好多子插件）</li>
+<li>Python （python语言支持，需要电脑上先安装python，并配置环境变量）</li>
+<li>Python Extended （python开发扩展包）</li>
+<li>Remote - WSL （用于vscode连接子系统进行开发）</li>
+<li>Remote - SSH （用于使用ssh连接远程主机开发）</li>
+<li>XML Tools （xml语言支持）</li>
+<li>MASM （masm汇编语法高亮）</li>
+<li>ASM Code Lens （用于辅助汇编语言开发）</li>
+</ul>
+<p>vscode自带的编译和运行是以文件夹为单位的而不是单个文件，因此需要打开文件夹，然后配置C/C++的运行和调试，具体操作自行百度即可。如果需要只运行一段简单的代码，可以考虑 <code>Code Runner</code> 插件，或者用 <strong>Ctrl +  `</strong> 来打开终端，用命令行来编译运行。</p>
+]]></content>
+      <tags>
+        <tag>win10</tag>
+      </tags>
+  </entry>
+</search>
