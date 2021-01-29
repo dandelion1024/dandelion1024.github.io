@@ -122,15 +122,15 @@
 </ul>
 <p>等比数列</p>
 <ul>
-<li><p>通项公式： $a_n = a_1^{n-1}$</p>
+<li><p>通项公式： $a_n = a_1q^{n-1}$</p>
 </li>
-<li><p>前 $n$ 项和：<br>$S_n =<br>\begin{cases} na_1                       &amp; r = 1 \\ \displaystyle\frac{a_1(1 - r^n)}{1 - r} &amp; r \neq 1<br>\end{cases}<br>$</p>
+<li><p>前 $n$ 项和：<br>$S_n =<br>\begin{cases} na_1                       &amp; q = 1 \\ \displaystyle\frac{a_1(1 - q^n)}{1 - q} &amp; q \neq 1<br>\end{cases}<br>$</p>
 </li>
 </ul>
 <p>一些常见数列的前 $n$ 项和：</p>
 <p>$\displaystyle\sum\limits_{k=1}^n k = 1 + 2 + \ldots + n = \frac{n(n+1)}{2}$</p>
 <p>$\begin{align*}<br>\displaystyle\sum\limits_{k=1}^n k^2 &amp;= 1^2 + 2^2 + \ldots + n^2 \\<br>&amp;= \frac{n(n+1)(2n+1)}{6}<br>\end{align*}$</p>
-<p>$\displaystyle\sum\limits_{k=1}^n \frac{1}{k(k+1)} = \frac{n}{n+1}$ ， （列项相消法）</p>
+<p>$\displaystyle\sum\limits_{k=1}^n \frac{1}{k(k+1)} = \frac{n}{n+1}$  （列项相消法）</p>
 <h4 id="三角函数基础"><a href="#三角函数基础" class="headerlink" title="三角函数基础"></a>三角函数基础</h4><p><strong>三角函数基本关系</strong></p>
 <p>$\displaystyle \csc \alpha = \frac{1}{\sin \alpha}$ ，$\displaystyle \sec \alpha = \frac{1}{\cos \alpha}$ ，</p>
 <p>$\displaystyle \cot \alpha = \frac{1}{\tan \alpha}$ ，</p>
@@ -205,7 +205,7 @@
 <p>$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$ </p>
 <p><strong>两项 n 次方之和与之差</strong></p>
 <p>$a^n -b^n = (a - b)(a^{n-1} + a^{n-2}b + \ldots + ab^{n-2} + b^{n-1})$，$n$ 是正整数 </p>
-<p>$n$ 为正偶数时，$a^n -b^n = (a + b)(a^{n-1} - a^{n-2}b + \ldots + ab^{n-2} - b^{n-1})$</p>
+<p>$n$ 为正偶数时，$a^n -b^n = (a + b)(a^{n-1} - a^{n-2}b + \ldots + ab^{n-2} - b^{n-1})$</p>
 <p>$n$ 为正奇数时，$a^n + b^n = (a + b)(a^{n-1} - a^{n-2}b + \ldots - ab^{n-2} + b^{n-1})$</p>
 <p><strong>二项式定理</strong></p>
 <p>$\displaystyle(a + b)^n = \sum\limits_{k=0}^n{ C_{n}^{k} a^{n-k}b^{k} }$</p>
