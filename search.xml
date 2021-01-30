@@ -15,7 +15,7 @@
   <entry>
     <title>数学基础</title>
     <url>/math/</url>
-    <content><![CDATA[<p>记录一些数学基础知识，常识性的知识直接pass</p>
+    <content><![CDATA[<p>记录一些数学基础知识，常识性的知识直接pass。</p>
 <h2 id="高等数学部分"><a href="#高等数学部分" class="headerlink" title="高等数学部分"></a>高等数学部分</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="函数的概念和特性"><a href="#函数的概念和特性" class="headerlink" title="函数的概念和特性"></a>函数的概念和特性</h4><p><strong>函数</strong></p>
 <p>函数是像和原像都为非空数集的映射。</p>
 <p>相关概念：定义域 $D$、值域 $R$、自变量、因变量，对应法则。</p>
@@ -103,14 +103,63 @@
 </ol>
 <h4 id="图像的变换"><a href="#图像的变换" class="headerlink" title="图像的变换"></a>图像的变换</h4><ul>
 <li>平移变换</li>
-<li>对称变换</li>
-<li>伸缩变换</li>
+<li>对称变换<ul>
+<li>注意反函数和原函数之间的对称关系</li>
 </ul>
-<h4 id="几个常见的图像"><a href="#几个常见的图像" class="headerlink" title="几个常见的图像"></a>几个常见的图像</h4><p><strong>心形线</strong></p>
+</li>
+<li>伸缩变换<ul>
+<li>需要注意下， $x$ 的系数越大，图像越窄，反之越宽</li>
+</ul>
+</li>
+</ul>
+<h4 id="常见的特殊图像"><a href="#常见的特殊图像" class="headerlink" title="常见的特殊图像"></a>常见的特殊图像</h4><p><strong>心形线</strong></p>
+<p>极坐标方程：</p>
+<p>$\rho = a(1 - \cos \theta)\ (a &gt; 0)$</p>
+<p>由方程得，其周期为 $2\pi$ ，且图像关于极轴对称。手绘可以用描点连线的方法。其图像如下：</p>
+<p><img data-src="./math/cardioid1.png" alt="心形线"></p>
+<p>可以采取把 $\cos\theta$ 改成 $\sin\theta$ 以及把 $1 - \cos\theta$ 改成 $1 + \cos\theta$ 等方法来改变心形线的方向，比如：</p>
+<p><img data-src="./math/cardioid2.png" alt="四种心形线"></p>
+<p><em>注：图片来自网络，里面的符号表示和上面的式子不太一样</em></p>
+<p>更多关于心型线的内容，可以查看 <a href="https://zhuanlan.zhihu.com/p/69353260">这篇知乎文章</a></p>
 <p><strong>三叶玫瑰线</strong></p>
+<p>极坐标方程：</p>
+<p>$$<br>\rho = a\sin{3\theta}\ (a &gt; 0)<br>$$</p>
+<p>注意右部表达式，其周期为 $\displaystyle \frac{2\pi}{3}$ ，画图的时候只需要关注一个周期，然后剩下的借助周期性来画即可。</p>
+<p>其图像如下：</p>
+<p><img data-src="./math/three-leaves-rose-curve.jpg" alt="三叶玫瑰线"></p>
 <p><strong>阿基米德螺线（亦称等速螺线）</strong></p>
+<p>极坐标方程：<br>$$<br>r = a\theta\ (a &gt; 0, \theta \ge 0)<br>$$<br>当角度 $\theta$ 增大的时候，极径 $r$ 也随其线性增大。</p>
+<p>其图像如下：</p>
+<p><img data-src="./math/Archimedean-spiral.jpg" alt="阿基米德螺线"></p>
+<p><strong>伯努利双纽线</strong></p>
+<p>设线段 $AB$ 长度为 $2a$ ，动点 M 满足 $MA \cdot MB = a^2$ ，那么 $M$ 的轨迹称为双纽线。</p>
+<p>如果 $A$ 和 $B$ 的坐标分别为 $(-a, 0)$ 和 $(a, 0)$ ，$M(x, y)$ ，则有：</p>
+<p>$\sqrt{(x + a)^2 + y^2} \cdot \sqrt{(x - a)^2 + y^2} = a^2$  ，</p>
+<p>整理得：</p>
+<p>$(x^2 + y^2)^2 = 2a^2(x^2 - y^2)$ ，</p>
+<p>转化为极坐标得：</p>
+<p>$\rho^2 = 2a^2\cos{2\theta}$ </p>
+<p>通常在设<strong>极坐标方程</strong>的时候设成 $\rho^2 = a^2\cos{2\theta}$ 和 $\rho^2 = a^2\sin{2\theta}$</p>
+<p>这两个方程的图像如下：</p>
+<p><img data-src="./math/lemniscate.jpg" alt="双纽线"></p>
+<p>画图的时候根据 $\rho$ 随 $\theta$ 的单调性来，每次画四分之一。</p>
 <p><strong>摆线</strong></p>
-<p><strong>星形线</strong></p>
+<p>当一个圆沿一条定直线做无滑动的滚动时，动圆圆周上的一个定点的轨迹就叫作摆线</p>
+<p>图像如下：</p>
+<p><img data-src="./math/cycloid.jpg" alt="摆线"></p>
+<p>角度和长度的表示已经在图中标出，其中 $MB$ 垂直于 $AC$，假设小圆的半径为 $r$。</p>
+<p>$x = OM_1 = |OC| - |M_1C|$  ，其中  $\widehat{CM}$ 是圆滚动的距离，因此</p>
+<p>$|OC|=$ 圆弧  $\widehat{CM}$ 的长度 $= rt$</p>
+<p>又由直角三角形的性质得</p>
+<p>$|M_1C| = |MA|\sin{t} = r\sin{t}$ </p>
+<p>由这三个式子可得 $x = rt - r\sin{t}$</p>
+<p>又由图得</p>
+<p>$y = M_1M = |CA| - |BA| = r - r\cos{t}$</p>
+<p>所以点 M 的运动轨迹，也就是摆线的<strong>参数方程</strong>为：<br>$$<br>\begin{cases}<br>x = r(t - \sin{t}) \\<br>y = r(1 - \cos{t})<br>\end{cases}<br>$$</p>
+<p><strong>星形线（也称为四尖瓣线）</strong></p>
+<p>一个小圆在一个固定的大圆内做纯滚动，如果大圆的半径是小圆半径的4被，那么小圆圆周上的任一点的轨迹称为星形线，直接看图：</p>
+<p><img data-src="./math/astroid.jpg" alt="星形线"></p>
+<p>推导过程过于繁杂，下面直接给出其<strong>参数方程</strong>：<br>$$<br>\begin{cases}<br>x = r\cos^2{t} \\<br>y = r\sin^2{t}<br>\end{cases}<br>$$<br>消去 $t$ 得到其<strong>直角坐标方程</strong>：<br>$$<br>x^{\frac{2}{3}} + y^{\frac{2}{3}} = r^{\frac{2}{3}}<br>$$</p>
 <h4 id="数列基础"><a href="#数列基础" class="headerlink" title="数列基础"></a>数列基础</h4><p>等差数列</p>
 <ul>
 <li>通项公式：$a_n = a_1 + (n - 1)d$ </li>
@@ -220,8 +269,21 @@
 <p>对于第一个不等式，若是离散的，可由两项推广到 $n$ 项。若是连续的，设 $f(x)$ 在 $[a, b](a &lt; b)$ 上可积，则：</p>
 <p>$\displaystyle |\int_a^b f(x)\ dx| \le \int_a^b |f(x)|\ dx$</p>
 <p><strong>基本不等式</strong></p>
+<p>$\displaystyle \sqrt{ab} \le \frac{a+b}{2} \le \sqrt{\frac{a^2 + b^2}{2}}\ (a,b &gt; 0)$</p>
+<p>$\displaystyle \sqrt[3]{abc} \le \frac{a+b+c}{3} \le \sqrt{\frac{a^3 + b^3 + c^3}{3}}\ (a,b,c &gt; 0)$</p>
+<p>可以一直推广到 n 项。</p>
 <p><strong>三角函数相关</strong></p>
+<p>$\displaystyle \sin x &lt; x &lt; \tan x\ (0 &lt; x &lt; \frac{\pi}{2})$</p>
+<p>$\sin x &lt; x\ (x &gt; 0)$</p>
+<p>$\displaystyle \arctan x \le x \le \arcsin x\ (0 \le x \le 1)$</p>
 <p><strong>自然对数相关</strong></p>
+<p>$x - 1 \ge \ln x\ (x &gt; 0)$</p>
+<p>$\displaystyle \frac{1}{x+1} &lt; \ln (1 + \frac{1}{x}) &lt; \frac{1}{x}\ (x &gt; 0)$</p>
+<p>第二个不等式的证明思路如下：</p>
+<p>令函数 $f(x) = \ln x$，在区间 $[x, x + 1]$ 上使用拉格朗日中值定理，有</p>
+<p>$\displaystyle \ln(1 + \frac{1}{x}) = \ln(1 + x) - \ln x = \frac{1}{\xi}$</p>
+<p>其中 $0 &lt; x &lt; \xi &lt; x + 1$ ，因此对任意的 $x &gt; 0$ ，都有</p>
+<p>$\displaystyle \frac{1}{x+1} &lt; \ln (1 + \frac{1}{x}) = \frac{1}{\xi} &lt; \frac{1}{x}$</p>
 ]]></content>
       <tags>
         <tag>数学</tag>
