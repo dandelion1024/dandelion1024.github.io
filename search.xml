@@ -108,7 +108,7 @@
 </ul>
 </li>
 <li>伸缩变换<ul>
-<li>需要注意下，&nbsp;$x$&nbsp;的系数越大，图像越窄，反之越宽</li>
+<li>需要注意下， $x$ 的系数越大，图像越窄，反之越宽</li>
 </ul>
 </li>
 </ul>
@@ -159,7 +159,7 @@
 <p><strong>星形线（也称为四尖瓣线）</strong></p>
 <p>一个小圆在一个固定的大圆内做纯滚动，如果大圆的半径是小圆半径的4被，那么小圆圆周上的任一点的轨迹称为星形线，直接看图：</p>
 <p><img src="/math/astroid.jpg" alt="星形线"></p>
-<p>推导过程过于繁杂，下面直接给出其<strong>参数方程</strong>：<br>$$<br>\begin{cases}<br>x = r\cos^2{t} \\<br>y = r\sin^2{t}<br>\end{cases}<br>$$<br>消去 $t$ 得到其<strong>直角坐标方程</strong>：<br>$$<br>x^{\frac{2}{3}} + y^{\frac{2}{3}} = r^{\frac{2}{3}}<br>$$</p>
+<p>推导过程过于繁杂，下面直接给出其<strong>参数方程</strong>：<br>$$<br>\begin{cases}<br>x = r\cos^3{t} \\<br>y = r\sin^3{t}<br>\end{cases}<br>$$<br>消去 $t$ 得到其<strong>直角坐标方程</strong>：<br>$$<br>x^{\frac{2}{3}} + y^{\frac{2}{3}} = r^{\frac{2}{3}}<br>$$</p>
 <h4 id="数列基础"><a href="#数列基础" class="headerlink" title="数列基础"></a>数列基础</h4><p>等差数列</p>
 <ul>
 <li>通项公式：$a_n = a_1 + (n - 1)d$ </li>
@@ -284,6 +284,26 @@
 <p>$\displaystyle \ln(1 + \frac{1}{x}) = \ln(1 + x) - \ln x = \frac{1}{\xi}$</p>
 <p>其中 $0 &lt; x &lt; \xi &lt; x + 1$ ，因此对任意的 $x &gt; 0$ ，都有</p>
 <p>$\displaystyle \frac{1}{x+1} &lt; \ln (1 + \frac{1}{x}) = \frac{1}{\xi} &lt; \frac{1}{x}$</p>
+<h2 id="数列极限"><a href="#数列极限" class="headerlink" title="数列极限"></a>数列极限</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>设 ${a_n}$ 为一个数列，$A$ 为一个定数，若对于任意给定的正数 $\varepsilon$ ，总存在正整数 N ，使得当 n &gt; N 时有 $|a_n - A| &lt; \varepsilon$ ，</p>
+<p>则称数列 ${a_n}$&nbsp;<strong>收敛于</strong> $A$&nbsp;，定数 $A$&nbsp;称为数列 ${a_n}$&nbsp;的<strong>极限</strong>，并记作 $\lim\limits_{n \to \infty} a_n = A$</p>
+<p>若数列 ${a_n}$&nbsp;没有极限，则称 ${a_n}$&nbsp;<strong>不收敛</strong>，或称 ${a_n}$&nbsp;发散。</p>
+<h3 id="数列收敛和其子数列收敛的关系"><a href="#数列收敛和其子数列收敛的关系" class="headerlink" title="数列收敛和其子数列收敛的关系"></a>数列收敛和其子数列收敛的关系</h3><h3 id="收敛数列的性质"><a href="#收敛数列的性质" class="headerlink" title="收敛数列的性质"></a>收敛数列的性质</h3><ul>
+<li>唯一性：若数列 ${a_n}$ 存在极限，则这个极限是唯一的</li>
+<li>有界性： 若数列 ${a_n}$ 存在极限，则数列 ${a_n}$ 有界</li>
+<li>保号性：若数列 ${a_n}$ 存在极限 $A$，且 $A &gt; 0$&nbsp;（或 $A &lt; 0$），则存在正整数 $N$&nbsp;，当 $n &gt; N$&nbsp;时，有 $a_n &gt; 0$&nbsp;（或 $a_n &lt; 0$）</li>
+</ul>
+<p>推论：如果数列 ${a_n}$&nbsp;从某项起有 $a_n \ge 0$&nbsp;，且 $\lim\limits_{n \to \infty} a_n = A$&nbsp;，则 $A \ge 0$&nbsp;。</p>
+<h3 id="数列极限的运算法则"><a href="#数列极限的运算法则" class="headerlink" title="数列极限的运算法则"></a>数列极限的运算法则</h3><p>设 $\lim\limits_{n \to \infty} a_n = A$ ，$\lim\limits_{n \to \infty} b_n = B$ 则</p>
+<ul>
+<li>$\lim\limits_{n \to \infty}(a_n \pm b_n) = \lim\limits_{n \to \infty} {A \pm B}$&nbsp;</li>
+<li>$\lim\limits_{n \to \infty}(a_n b_n) = \lim\limits_{n \to \infty} {A \cdot B}$ </li>
+<li>若 $B \neq 0, b_n \neq 0$&nbsp;，则 $\displaystyle \lim\limits_{n \to \infty}\frac{a_n}{b_n} = \frac{A}{B}$</li>
+</ul>
+<p>可推广至<strong>有限个</strong>数列。</p>
+<h3 id="夹逼定理"><a href="#夹逼定理" class="headerlink" title="夹逼定理"></a>夹逼定理</h3><p>设数列 ${a_n}$ ，${b_n}$ 及 ${c_n}$ ，</p>
+<p>若 $b_n \le a_n \le c_n$ ，且 $\lim\limits_{n \to \infty} b_n = A$ ，$\lim\limits_{n \to \infty} c_n = A$ </p>
+<p>则数列 ${a_n}$&nbsp;存在极限，且 $\lim\limits_{n \to \infty} a_n = A$&nbsp;&nbsp;</p>
+<h3 id="单调有界定理"><a href="#单调有界定理" class="headerlink" title="单调有界定理"></a>单调有界定理</h3><p>单调有界数列必有极限！</p>
 </body></html>]]></content>
       <tags>
         <tag>数学</tag>
