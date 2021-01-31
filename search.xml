@@ -18,7 +18,7 @@
     <content><![CDATA[<html><head></head><body><h2 id="Qt5的下载与安装"><a href="#Qt5的下载与安装" class="headerlink" title="Qt5的下载与安装"></a>Qt5的下载与安装</h2><h3 id="win10"><a href="#win10" class="headerlink" title="win10"></a>win10</h3><p>我选择的是 Qt5.12.10，下载地址如下：</p>
 <ul>
 <li>中科大的镜像：<a href="https://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/5.12/5.12.10/">https://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/5.12/5.12.10/</a></li>
-<li>清华镜像：<a href="https://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/5.12/5.12.10/">https://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/5.12/5.12.10/.</a></li>
+<li>清华镜像：<a href="https://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/5.12/5.12.10/">https://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/5.12/5.12.10/</a></li>
 </ul>
 <p>目录中找到文件 <code>qt-opensource-windows-x86-5.12.10.exe</code>&nbsp;并下载即可。</p>
 <p>安装完后，打开 QtCreator 会提示找不到 python36.dll ，因为 Qt5.12 依赖 python3.6 ，我们可以安装对应的版本的python，然后在python安装目录下就能看到 python36.dll，但是我的python以及装了 3.9 的，因此选择网上下载 python36.dll，本站下载地址如下：</p>
